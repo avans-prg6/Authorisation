@@ -1,4 +1,5 @@
 ﻿using Authorisation.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,18 @@ namespace Authorisation.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Geheimen()
         {
-            return View(_context.Geheimen.ToList());
+            if(User.IsInRole("SecretKeeper"))
+            {
+                return View(_context.Geheimen.ToList());
+
+            }
+            else
+            {
+                return View(_context.Geheimen.Where(g => g.SecurityLevel < 2).ToList());
+            }
         }
     }
 }
