@@ -1,0 +1,9 @@
+﻿@model List<Authorisation.Model.Geheim>
+
+<h1>Geheimen</h1>
+
+<ul>
+    @foreach (var geheim in Model.OrderBy(g => g.SecurityLevel)){
+        <li>@geheim.SecurityLevel - @geheim.Inhoud</li>
+    }
+</ul>
