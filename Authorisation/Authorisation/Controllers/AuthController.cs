@@ -51,24 +51,32 @@ namespace Authorisation.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterForm registerForm)
         {
-            AppUser user = new AppUser()
+            try
             {
-                UserName = registerForm.Name,
-                Email = registerForm.Email
-            };
+                AppUser user = new AppUser()
+                {
+                    UserName = registerForm.Name,
+                    Email = registerForm.Email
+                };
 
-            //Wat doet de await?
-            var result = await _userManager.CreateAsync(user, registerForm.Password);
+                //Wat doet de await?
+                var result = await _userManager.CreateAsync(user, registerForm.Password);
 
-            //Als het gelukt is om de gebruiker aan te maken, kunnen we hem meteen inloggen.
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return Redirect("/home");
+                //Als het gelukt is om de gebruiker aan te maken, kunnen we hem meteen inloggen.
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return Redirect("/home");
 
+                }
+
+                return View();
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+    
         }
 
         [HttpGet]
