@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Authorisation.Model
 {
-    public class MyContext : DbContext
+    public class MyContext : IdentityDbContext<AppUser>
     {
         public MyContext() : base() { }
 
