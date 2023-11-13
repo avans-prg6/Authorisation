@@ -1,15 +1,1 @@
 ﻿<h2>Hello world</h2>
-
-@if (User.Identity.IsAuthenticated)
-{
-    <h3>Welcome @User.Identity.Name</h3>
-    <a href="/auth/logout">Logout</a>
-}
-else
-{
-<h2>
-    Welcome</h2>
-    <p>Please     <a href="/auth/login">login</a>
-    or     <a href="/auth/register">register</a>
-</p>
-}
